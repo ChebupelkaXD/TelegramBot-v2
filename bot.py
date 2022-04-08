@@ -41,7 +41,7 @@ async def call_back1(call: types.CallbackQuery):
 		await bot.send_message(call.from_user.id, "Твою мать! До этого момента я был атеистом, но сейчас я действительно уверовал!")
 
 	for i, line in enumerate(f):
-			if i > 4:
+			if i > 4 and i < 7:
 				await bot.send_message(call.message.chat.id, line )
 				sl(1)
 	await bot.send_message(call.message.chat.id, "Как думаешь, это считается мародерством?", reply_markup=mark.button2)
@@ -57,7 +57,11 @@ async def call_back1(call: types.CallbackQuery):
 	elif call.data == "second_answer4":
 		await bot.send_message(call.from_user.id, "Ад давно уже на земле…")
 
-
+	
+	for i, line in enumerate(f):
+			if i == 7:
+				await bot.send_message(call.message.chat.id, line )
+				sl(1)
 
 
 if __name__ == "__main__":
