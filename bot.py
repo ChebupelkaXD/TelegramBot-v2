@@ -14,7 +14,7 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
 f = list(open ('TextScenario.txt', encoding = 'Windows-1251'))
-photo = open('549487_1.jpg', 'rb')
+photo = open('YOU DIED.jpg', 'rb')
 
 
 '''
