@@ -1,4 +1,5 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
+
 
 background = InlineKeyboardMarkup(row_width = 2)
 Yes = InlineKeyboardButton("Да", callback_data= "answer_yes")
@@ -23,3 +24,9 @@ item5 = InlineKeyboardButton("Называй меня “хозяин” – н�
 item6 = InlineKeyboardButton("<Ваше имя>", callback_data= "third_answer6")
 
 button3.add(item5, item6)
+
+button4 = InlineKeyboardMarkup(row_width = 1)
+item7 = InlineKeyboardButton("Ты привитый или иммунный?", callback_data= "fourth_answer7")
+item8 = InlineKeyboardButton("Здоровья погибшим…", callback_data= "fourth_answer8")
+
+button4.add(item7, item8)

@@ -38,20 +38,23 @@ async def hueta(message):
 
 @dp.message_handler(commands=['start'])
 async def type(message):
+    await message.answer("|")
     orig_text = "Какой-то текст..."
-    text = orig_text
+    textt = orig_text
     tbp = "" 
     typing_symbol = "|"
  
     while(tbp != orig_text):
+
+        abc = tbp + typing_symbol
     
-        await bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text = tbp + typing_symbol)
+        await message.edit_text(str(abc))
         sleep(0.05)
  
-        tbp = tbp + text[0]
-        text = text[1:]
+        tbp = tbp + textt[0]
+        textt = textt[1:]
  
-        await bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text = tbp)
+        await message.edit_text(str(tbp))
         sleep(0.05)
  
         

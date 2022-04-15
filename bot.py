@@ -4,6 +4,7 @@ from aiogram.utils import executor
 import config
 import scenario
 import markups as mark
+import sys 
 
 from time import sleep as sl
 
@@ -13,6 +14,13 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
 f = list(open ('TextScenario.txt', encoding = 'Windows-1251'))
+photo = open('549487_1.jpg', 'rb')
+
+
+'''
+@dp.message_handler(commands = ['menu'])
+async def start(message: types.Message):
+'''
 
 
 @dp.message_handler(commands = ['start'])
@@ -79,16 +87,45 @@ async def call_back2(call: types.CallbackQuery):
 @dp.callback_query_handler(text_startswith="third_")
 async def call_back3(call: types.CallbackQuery):
 	await bot.delete_message(call.from_user.id, call.message.message_id)
-	if call.data  == "third_answer5":
-		await bot.send_message(call.from_user.id, "…")
 
-	elif call.data == "third_answer6":
-		await bot.send_message(call.from_user.id, "Будем знакомы, " + (call.from_user.first_name))
+	go = 0 # GAME OVER
+	if go != 1 and call.data  == "third_answer5":
+		go = 1
+		await bot.send_message(call.from_user.id, "Пойду вскроюсь...")
+		sl(1)
+		await bot.send_message(call.from_user.id, "***Ярик посчитал, что лучше умереть, чем жить в мире с таким арбузером, как Вы.***")
+		sl(1)
+		await bot.send_photo(call.from_user.id, photo = photo)
+		sl(1)
+		await bot.send_message(call.from_user.id, "Чтобы начать игру занаво, выберете команду /start")
 
-	for i, line in enumerate(f):
-		if i > 7 and i < 10:
-			await bot.send_message(call.message.chat.id, line )
-			sl(1)
+
+	elif go != 1 and call.data == "third_answer6":
+		await bot.send_message(call.from_user.id, "Будем знакомы, " + (call.from_user.first_name)) # (call.from_user.first_name) - вставляет в сообщение бота ник пользователя
+	
+	if go != 1:
+		for i, line in enumerate(f):
+			if i > 7 and i < 10:
+				await bot.send_message(call.message.chat.id, line )
+				sl(1)
+
+		await bot.send_message(call.message.chat.id, "Твою мать, чуть не откинулся…", reply_markup=mark.button4)
+		sl(1)
+
+@dp.callback_query_handler(text_startswith="fourth_")
+async def call_back3(call: types.CallbackQuery):
+	await bot.delete_message(call.from_user.id, call.message.message_id)
+	if call.data  == "fourth_answer7":
+		await bot.send_message(call.from_user.id, "Привитый. Мне повезло получить иммунитет после инъекции. Но, к сожалению, не без последствий. Легким п#зд@...\n"
+												  +"Сейчас у меня вряд ли получится бегать марафоны. Поэтому надо держать подальше от зараженных. "
+												  +"Некоторые из них бегают очень быстро…")
+
+	elif call.data == "fourth_answer8":
+		await bot.send_message(call.from_user.id, "Не сглазь!\n"
+												  +"Хорошо, что мне повезло получить иммунитет после инъекции. Но, к сожалению, не без последствий. Легким п#зд@...\n"
+												  +"Сейчас у меня вряд ли получится бегать марафоны. Поэтому надо держаться подальше от зараженных. Некоторые из них передвигаются очень быстро…")
+
+
 
 
 if __name__ == "__main__":
