@@ -17,9 +17,9 @@ f = list(open ('TextScenario.txt', encoding = 'Windows-1251'))
 '''
 @dp.message_handler(commands=['start'])
 async def stats(govno):
-	await bot.send_message(govno.chat.id, "Отправьте текст, чтобы протестировать функцию бота.")
-
+	await bot.send_message(govno.chat.id, "Текст для теста")
 '''
+
 
 '''
 @dp.message_handler()
@@ -36,25 +36,23 @@ async def hueta(message):
 		await bot.send_message(message.chat.id, """Что бы симулировать влом чего-то, вам нужно ввести обьект для взлома после команды.""")
 '''
 
-@dp.message_handler(commands=['start'])
+@dp.message_handler(commands = ['start'])
 async def type(message):
-    await message.answer("|")
-    orig_text = "Какой-то текст..."
-    textt = orig_text
+    orig_text = "Текст для теста"
+    text = orig_text
     tbp = "" 
     typing_symbol = "|"
+    await bot.send_message(message.chat.id, orig_text[:1])
  
     while(tbp != orig_text):
 
-        abc = tbp + typing_symbol
-    
-        await message.edit_text(str(abc))
+        await bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text = tbp + typing_symbol)
         sleep(0.05)
  
-        tbp = tbp + textt[0]
-        textt = textt[1:]
+        tbp = tbp + text[0]
+        text = text[1:]
  
-        await message.edit_text(str(tbp))
+        await bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text = tbp)
         sleep(0.05)
  
         
