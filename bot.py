@@ -4,8 +4,6 @@ from aiogram.utils import executor
 import config
 import scenario
 import markups as mark
-import sys 
-
 from time import sleep as sl
 
 from config import TOKEN
