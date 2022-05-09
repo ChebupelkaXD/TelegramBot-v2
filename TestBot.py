@@ -22,7 +22,7 @@ async def stats(govno):
 
 
 '''
-@dp.message_handler()
+@dp.message_handler(commands = ['start'])
 async def hueta(message):
 	try:
 		mes = message.text
@@ -36,27 +36,39 @@ async def hueta(message):
 		await bot.send_message(message.chat.id, """Что бы симулировать влом чего-то, вам нужно ввести обьект для взлома после команды.""")
 '''
 
+'''
 @dp.message_handler(commands = ['start'])
 async def type(message):
     orig_text = "Текст для теста"
-    text = orig_text
+    textt = orig_text
     tbp = "" 
     typing_symbol = "|"
-    await bot.send_message(message.chat.id, orig_text[:1])
+    mes = await bot.send_message(message.chat.id, "-")
  
     while(tbp != orig_text):
 
-        await bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text = tbp + typing_symbol)
-        sleep(0.05)
+        textt = await bot.edit_message_text(chat_id=message.chat.id, message_id=mes.message_id, text = tbp + typing_symbol)
+        sl(0.05)
  
-        tbp = tbp + text[0]
-        text = text[1:]
+        tbp = tbp + textt[0]
+        textt = textt[1:]
  
-        await bot.edit_message_text(chat_id=message.chat.id, message_id=message.message_id, text = tbp)
-        sleep(0.05)
- 
-        
+        await bot.edit_message_text(chat_id=message.chat.id, message_id=textt.message_id, text = tbp)
+        sl(0.05)
+'''
+
+@dp.message_handler(commands = ['start'])
+async def echo_message(message):
+    orig_text = "Текст для теста"
+    msg = await bot.send_message(message.chat.id, 'I')
+    sl(0.05)
+    tbp = orig_text[:1]
+    for x in orig_text[1:]:
+        await bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text=f'{tbp}|')
+        sl(0.05)
+        tbp += x
+        await bot.edit_message_text(chat_id=message.chat.id, message_id=msg.message_id, text=tbp)
 
 
 if __name__ == "__main__":
-	executor.start_polling(dp, skip_updates = True)
+	executor.start_polling(dp, skip_updates = False)
