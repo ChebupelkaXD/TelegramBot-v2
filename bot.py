@@ -5,6 +5,7 @@ import config
 import scenario
 import markups as mark
 from time import sleep as sl
+import TypingEffect as eff 
 
 from config import TOKEN
 
@@ -40,7 +41,7 @@ async def call_back(call: types.CallbackQuery):
 	#Отпраляет первые 5 строк из файла последовательно
 	for i, line in enumerate(f):
 		if i < 5:
-			await bot.send_message(call.message.chat.id, line )
+			await bot.send_message(call.message.chat.id, eff.effect(line) )
 			sl(1)
 
 	await bot.send_message(call.from_user.id, "Бесполезный кусок говна, все давно сдохли, на что я надеюсь…", reply_markup=mark.button1)
