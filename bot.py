@@ -5,28 +5,42 @@ import config
 import scenario
 import markups as mark
 from time import sleep as sl
-import TypingEffect as eff 
 
-from config import TOKEN
+from config import TOKEN, YOOTOKEN
+
+ytoken = YOOTOKEN
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
 f = list(open ('TextScenario.txt', encoding = 'Windows-1251'))
 photo = open('YOU DIED.jpg', 'rb')
+leo = open('DiCaprio.jpg', 'rb')
 
 
-'''
 @dp.message_handler(commands = ['menu'])
-async def start(message: types.Message):
-'''
-
+async def menu(message: types.Message):
+	await bot.send_message(message.chat.id, "Спомощью меню, вы можете отправиь донат или связаться с технической поддержкой.", reply_markup = mark.Menu)
 
 @dp.message_handler(commands = ['start'])
 async def start(message: types.Message):
-
 	await bot.send_message(message.chat.id, "*Хотите узнать предысторию событий?*", parse_mode= 'Markdown', reply_markup=mark.background)
 	sl(1)
+
+@dp.message_handler()
+async def bot_message(message: types.Message):
+	if message.text == 'Чашечка кофе для авторов☕':
+		await bot.send_invoice(message.chat.id, title ="Чашечка кофе для авторов☕", description = "Наша команда очень старалась сделать что-то интересное и увлекательное для вас. Мы будем рады, даже не большой чашечке кофе, если вам понравилась наша игра ❤", payload = "Чашечка кофе☕", provider_token = ytoken, currency="rub", photo_url = 'https://srisovki.one/wp-content/uploads/2021/05/image_562404190714424312763-768x834.jpg', photo_height=512, photo_width=512, photo_size=512, start_parameter = "test_pay", prices = [{"label": "Мани-мани", "amount": 7000}])
+
+@dp.pre_checkout_query_handler()
+async def process_pre_checkout_query(pre_checkout_query: types.PreCheckoutQuery):
+	await bot.answer_pre_checkout_query(pre_checkout_query.id, ok = True)
+
+@dp.message_handler(content_types=['successful_payment'])
+async def process_successful_payment(message: types.Message):
+	if message.successful_payment.invoice_payload == "Чашечка кофе☕":
+		await bot.send_photo(message.from_user.id, text="Чтобы продолжить игру, нажмите на кнопку ответа Ярику.", photo = leo)
+
 
 @dp.callback_query_handler(text_startswith="answer_")
 async def call_back(call: types.CallbackQuery):
@@ -41,7 +55,7 @@ async def call_back(call: types.CallbackQuery):
 	#Отпраляет первые 5 строк из файла последовательно
 	for i, line in enumerate(f):
 		if i < 5:
-			await bot.send_message(call.message.chat.id, eff.effect(line) )
+			await bot.send_message(call.message.chat.id, line )
 			sl(1)
 
 	await bot.send_message(call.from_user.id, "Бесполезный кусок говна, все давно сдохли, на что я надеюсь…", reply_markup=mark.button1)
