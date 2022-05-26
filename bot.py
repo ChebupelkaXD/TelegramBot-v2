@@ -235,7 +235,7 @@ async def call_back3(call: types.CallbackQuery):
 						await asyncio.sleep(e.timeout)
 				sl(2)
 
-		await bot.send_message(call.message.chat.id, "Где ты был последнюю неделю?", reply_markup=mark.button5)
+		await bot.send_message(call.message.chat.id, "Да и воды почти не осталось", reply_markup=mark.button5)
 		sl(2)
 
 @dp.callback_query_handler(text_startswith="fifth_")
