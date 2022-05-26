@@ -30,3 +30,8 @@ button4 = InlineKeyboardMarkup(row_width = 1)
 item7 = InlineKeyboardButton("Место, где я нахожусь. Здесь нет интернета…", callback_data= "fourth_answer7")
 item8 = InlineKeyboardButton("Я не могу сказать…", callback_data= "fourth_answer8")
 button4.add(item7, item8)
+
+button5 = InlineKeyboardMarkup(row_width = 1)
+item9 = InlineKeyboardButton("Не ссы в трусы, может это собака…", callback_data= "fifth_answer9")
+item10 = InlineKeyboardButton("Лучше уходи оттуда. Жизнь дороже!", callback_data= "fifth_answer10")
+button4.add(item9, item10)

@@ -235,6 +235,61 @@ async def call_back3(call: types.CallbackQuery):
 						await asyncio.sleep(e.timeout)
 				sl(2)
 
+		await bot.send_message(call.message.chat.id, "Где ты был последнюю неделю?", reply_markup=mark.button5)
+		sl(2)
+
+@dp.callback_query_handler(text_startswith="fifth_")
+async def call_back3(call: types.CallbackQuery):
+	await bot.delete_message(call.from_user.id, call.message.message_id)
+	if call.data  == "fifth_answer9":
+
+		for i, line in enumerate(a):
+			if i > 4 and i < 34:
+				orig_text = line
+				msg = await bot.send_message(call.from_user.id, 'I')
+				sl(0.1)
+				tbp = orig_text[:1]
+				for x in orig_text[1:]:
+					try:
+						await bot.edit_message_text(chat_id=call.from_user.id, message_id=msg.message_id, text=f'{tbp}|')
+						sl(0.1)
+						tbp += x
+						await bot.edit_message_text(chat_id=call.from_user.id, message_id=msg.message_id, text=tbp)
+
+					except exceptions.RetryAfter as e:
+						await asyncio.sleep(e.timeout)
+				sl(2)
+
+	game_over=0
+	if call.data  == "fifth_answer10":
+
+		game_over=1
+
+		for i, line in enumerate(a):
+			if i > 34 and i < 65:
+				orig_text = line
+				msg = await bot.send_message(call.from_user.id, 'I')
+				sl(0.1)
+				tbp = orig_text[:1]
+				for x in orig_text[1:]:
+					try:
+						await bot.edit_message_text(chat_id=call.from_user.id, message_id=msg.message_id, text=f'{tbp}|')
+						sl(0.1)
+						tbp += x
+						await bot.edit_message_text(chat_id=call.from_user.id, message_id=msg.message_id, text=tbp)
+
+					except exceptions.RetryAfter as e:
+						await asyncio.sleep(e.timeout)
+				sl(2)
+
+		await bot.send_message(call.message.chat.id, "***Связь потеряна***")
+		sl(2)
+
+		await bot.send_photo(call.message.chat.id, photo )
+		sl(2)
+
+		await bot.send_message(call.message.chat.id, "Чтобы начать игру зановго, нажмите на /start")
+
 
 if __name__ == "__main__":
 	executor.start_polling(dp, skip_updates = True)
